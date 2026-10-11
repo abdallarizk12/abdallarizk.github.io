@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عبد الله محمد | Portfolio</title>
+    <!-- استدعاء الخطوط العربية والإنجليزية -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- استدعاء مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* المتغيرات والألوان الإبداعية */
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #f43f5e;
+            --bg-color: #f8fafc;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.4);
+        }
+
+        /* الوضع الليلي */
+        body.dark-mode {
+            --bg-color: #0f172a;
+            --text-dark: #f8fafc;
+            --text-light: #cbd5e1;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        .en-text { font-family: 'Poppins', sans-serif; }
+
+        /* الأشكال الزخرفية المتحركة في الخلفية (Blobs) */
+        .shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 10s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        .shape-1 { width: 400px; height: 400px; background: var(--primary); top: -100px; right: -100px; animation-delay: 0s; }
+        .shape-2 { width: 350px; height: 350px; background: var(--secondary); bottom: -100px; left: -50px; animation-delay: 2s; }
+        .shape-3 { width: 300px; height: 300px; background: var(--accent); top: 40%; left: 30%; animation-delay: 4s; opacity: 0.3; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
+        }
+
+        /* شريط التنقل */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: var(--glass-bg); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.8rem; font-weight: 900; background: linear-gradient(45deg, var(--primary), var(--secondary)); -webkit-background-clip: text; color: transparent; }
+        nav { display: flex; gap: 20px; align-items: center; }
+        nav a { color: var(--text-dark); text-decoration: none; font-weight: 700; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+        
+        #theme-toggle {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none; color: white; width: 40px; height: 40px; border-radius: 50%;
+            cursor: pointer; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        #theme-toggle:hover { transform: rotate(30deg) scale(1.1); }
+
+        /* الواجهة الرئيسية */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 100px 5% 50px; position: relative;
+        }
+        .profile-badge {
+            background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
+            padding: 10px 25px; border-radius: 30px; font-weight: 700; color: var(--secondary);
+            margin-bottom: 25px; display: inline-block; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            animation: slideDown 1s ease-out;
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 5px; color: var(--text-dark); line-height: 1.2; }
+        .hero h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--text-light); }
+        .hero p { max-width: 700px; font-size: 1.2rem; color: var(--text-light); margin-bottom: 30px; }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* البطاقات الشخصية (تاريخ الميلاد والعمر) */
+        .personal-info {
+            display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;
+        }
+        .info-pill {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; padding: 12px 25px; border-radius: 50px; font-weight: 700;
+            display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+            transition: 0.3s;
+        }
+        .info-pill:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(37, 99, 235, 0.3); }
+
+        /* الأقسام والبطاقات الزجاجية */
+        section { padding: 80px 5%; position: relative; z-index: 1; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--text-dark); }
+        .section-title span { color: var(--primary); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .glass-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(15px); padding: 40px 30px; border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
+        }
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0); transform-origin: right; transition: transform 0.4s;
+        }
+        .glass-card:hover { transform: translateY(-10px); }
+        .glass-card:hover::before { transform: scaleX(1); transform-origin: left; }
+        
+        .card-icon {
+            width: 70px; height: 70px; margin: 0 auto 20px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 2rem; color: var(--primary);
+        }
+        .glass-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--text-dark); }
+        .glass-card p { color: var(--text-light); font-size: 1rem; }
+
+        /* شارات المستوى (Beginner badges) */
+        .level-badge {
+            display: inline-block; margin-top: 15px; padding: 5px 15px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: 700; background: rgba(244, 63, 94, 0.1); color: var(--accent);
+        }
+
+        /* أزرار التواصل */
+        .social-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 40px; }
+        .social-btn {
+            padding: 15px 35px; border-radius: 50px; font-weight: 700; font-size: 1.1rem;
+            color: white; text-decoration: none; display: flex; align-items: center; gap: 12px;
+            transition: 0.3s; position: relative; overflow: hidden; z-index: 1;
+        }
+        .social-btn::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.2); z-index: -1; transform: scaleX(0); transition: 0.3s; transform-origin: right;
+        }
+        .social-btn:hover::after { transform: scaleX(1); transform-origin: left; }
+        .btn-email { background: linear-gradient(45deg, #ea4335, #ff6b6b); box-shadow: 0 10px 20px rgba(234, 67, 53, 0.3); }
+        .btn-insta { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 10px 20px rgba(204, 35, 102, 0.3); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero h2 { font-size: 1.8rem; }
+            nav a { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الزخارف المتحركة في الخلفية -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+
+    <!-- شريط التنقل -->
+    <header>
+        <div class="logo en-text">A . R . Z</div>
+        <nav>
+            <a href="#about">من أنا</a>
+            <a href="#skills">مهاراتي</a>
+            <a href="#contact">تواصل معي</a>
+            <button id="theme-toggle" title="تغيير المظهر"><i class="fas fa-moon"></i></button>
+        </nav>
+    </header>
+
+    <!-- الواجهة الرئيسية -->
+    <section class="hero">
+        <div class="profile-badge">
+            <i class="fas fa-star" style="color: #fbbf24;"></i> مرحباً بك في عالمي
+        </div>
+        
+        <!-- الاسم بالعربي والإنجليزي -->
+        <h1>عبد الله محمد رزق</h1>
+        <h2 class="en-text">Abdalla Mohammed Rizk</h2>
+        
+        <p>
+            أجمع بين دراسة الطب البشري، وبين شغف البدايات في عالم التكنولوجيا والإبداع. 
+            أخطو خطواتي الأولى نحو دمج العلوم الطبية مع البرمجة والتصميم الرقمي.
+        </p>
+
+        <!-- معلومات شخصية إضافية (العمر وتاريخ الميلاد) -->
+        <div class="personal-info">
+            <div class="info-pill">
+                <i class="fas fa-birthday-cake"></i> 6 ديسمبر 2008
+            </div>
+            <div class="info-pill">
+                <i class="fas fa-user-clock"></i> 18 عاماً
+            </div>
+            <div class="info-pill" style="background: linear-gradient(135deg, #10b981, #059669);">
+                <i class="fas fa-university"></i> طب الأزهر بأسيوط
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المهارات والتخصصات -->
+    <section id="skills">
+        <h2 class="section-title">مجالات <span>اهتمامي</span></h2>
+        
+        <div class="grid">
+            <!-- البطاقة الطبية -->
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-stethoscope"></i></div>
+                <h3>الطب البشري</h3>
+                <p>طالب بالفرقة الأولى (الدفعة 39). أركز حالياً على إتقان الفسيولوجيا البشرية وفهم آليات الجسم البشري لتأسيس قاعدة طبية قوية للمستقبل.</p>
+                <div class="level-badge" style="background: rgba(37, 99, 235, 0.1); color: var(--primary);">المجال الأساسي</div>
+            </div>
+
+            <!-- بطاقة البرمجة -->
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
+                <h3>البرمجة والذكاء الاصطناعي</h3>
+                <p>لدي شغف كبير بالتكنولوجيا. بدأت رحلتي مؤخراً في تعلم أساسيات البرمجة، وأطمح لتوظيف الذكاء الاصطناعي في خدمة التعليم الطبي.</p>
+                <div class="level-badge">مبتدئ بشغف (Beginner)</div>
+            </div>
+
+            <!-- بطاقة الفوتوشوب والتصميم -->
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-palette"></i></div>
+                <h3>الفوتوشوب والتصميم الرقمي</h3>
+                <p>أستمتع بتجربة أدوات التصميم وتعديل الصور. قمت بتصميم الشعار الرسمي لدفعتي (الدفعة 39)، وأسعى لتطوير مهاراتي البصرية أكثر.</p>
+                <div class="level-badge">مبتدئ ومحب للإبداع</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل -->
+    <section id="contact" style="text-align: center; margin-bottom: 50px;">
+        <h2 class="section-title">دعنا <span>نتواصل</span></h2>
+        <p style="color: var(--text-light); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+            سواء كنت تريد التعاون في مشروع جامعي، تبادل الأفكار التقنية، أو مجرد إلقاء التحية.. يسعدني تواصلك!
+        </p>
+        
+        <div class="social-container">
+            <a href="mailto:abdallarizk2019@gmail.com" class="social-btn btn-email">
+                <i class="fas fa-envelope-open-text"></i> abdallarizk2019@gmail.com
+            </a>
+            <a href="https://instagram.com/abdalla.rizk.605" target="_blank" class="social-btn btn-insta">
+                <i class="fab fa-instagram"></i> @abdalla.rizk.605
+            </a>
+        </div>
+    </section>
+
+    <!-- سكربت الوضع الليلي (Dark Mode) -->
+    <script>
+        const themeBtn = document.getElementById('theme-toggle');
+        const icon = themeBtn.querySelector('i');
+        const body = document.body;
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if(body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        });
+    </script>
+
+</body>
+</html>
