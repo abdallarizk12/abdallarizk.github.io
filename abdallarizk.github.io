@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdalla Rizk | Portfolio</title>
+    <!-- خطوط جوجل (عربي وإنجليزي) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* المتغيرات الأساسية (الوضع النهاري) */
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --primary: #1a5f7a;
+            --secondary: #22a6b3;
+            --accent: #ff6b6b;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --border: #e9ecef;
+        }
+
+        /* المتغيرات (الوضع الليلي) */
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --primary: #4fc3f7;
+            --secondary: #26c6da;
+            --shadow: 0 5px 15px rgba(0,0,0,0.3);
+            --border: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .en-text { font-family: 'Poppins', sans-serif; }
+
+        /* شريط التنقل */
+        header {
+            background-color: var(--card-bg);
+            padding: 15px 5% 15px 5%;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+        .logo { font-size: 24px; font-weight: 900; color: var(--primary); }
+        nav { display: flex; align-items: center; gap: 20px; }
+        nav a { text-decoration: none; color: var(--text-color); font-weight: 700; transition: color 0.3s; }
+        nav a:hover { color: var(--secondary); }
+        
+        /* زر الوضع الليلي */
+        #theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #theme-toggle:hover { transform: rotate(20deg); color: var(--secondary); }
+
+        /* الأقسام المشتركة */
+        section { padding: 100px 10%; border-bottom: 1px solid var(--border); }
+        .section-title {
+            text-align: center; font-size: 2.2rem; color: var(--primary); margin-bottom: 40px; position: relative;
+        }
+        .section-title::after {
+            content: ''; width: 50px; height: 4px; background: var(--secondary); display: block; margin: 10px auto 0; border-radius: 2px;
+        }
+
+        /* الواجهة الرئيسية */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(26, 95, 122, 0.05) 0%, rgba(34, 166, 179, 0.1) 100%);
+        }
+        .hero h1 { font-size: 4rem; color: var(--primary); margin-bottom: 10px; }
+        .hero h2 { font-size: 1.8rem; color: var(--secondary); font-weight: 600; margin-bottom: 15px; letter-spacing: 2px;}
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 30px; font-style: italic; }
+
+        /* البطاقات (Cards) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border);
+        }
+        .card:hover { transform: translateY(-7px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--secondary); }
+        .card i { font-size: 2.5rem; color: var(--secondary); margin-bottom: 15px; }
+        .card h3 { color: var(--primary); margin-bottom: 10px; }
+
+        /* أسلوب التعلم */
+        .learning-list { list-style: none; }
+        .learning-list li {
+            background: var(--card-bg); padding: 15px 20px; margin-bottom: 10px;
+            border-radius: 10px; box-shadow: var(--shadow);
+            display: flex; align-items: center; gap: 15px;
+            border-right: 4px solid var(--secondary);
+        }
+        .learning-list i { color: var(--secondary); font-size: 1.2rem; }
+
+        /* الاهتمامات */
+        .interest-category { margin-bottom: 30px; }
+        .interest-category h3 { color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag {
+            background: rgba(34, 166, 179, 0.1); color: var(--secondary);
+            padding: 8px 18px; border-radius: 20px; font-weight: 600; font-size: 0.95rem;
+            border: 1px solid rgba(34, 166, 179, 0.3); transition: 0.3s;
+        }
+        .tag:hover { background: var(--secondary); color: white; }
+
+        /* التواصل */
+        .contact-links { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+        .contact-btn {
+            display: flex; align-items: center; gap: 10px; padding: 12px 25px;
+            border-radius: 30px; text-decoration: none; font-weight: 700; color: white;
+            transition: transform 0.3s;
+        }
+        .email-btn { background-color: #ea4335; }
+        .insta-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .contact-btn:hover { transform: scale(1.05); color: white; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero h2 { font-size: 1.2rem; }
+            nav { display: none; /* يمكن تطويرها لقائمة منسدلة لاحقاً */ }
+            header { justify-content: space-between; }
+            #theme-toggle { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط التنقل -->
+    <header>
+        <div class="logo en-text">Abdalla Rizk</div>
+        <nav>
+            <a href="#about">التعليم</a>
+            <a href="#learning">أسلوب التعلم</a>
+            <a href="#projects">المستقبل</a>
+            <a href="#interests">الاهتمامات</a>
+            <a href="#contact">التواصل</a>
+        </nav>
+        <button id="theme-toggle" title="تبديل الوضع الليلي"><i class="fas fa-moon"></i></button>
+    </header>
+
+    <!-- الواجهة الرئيسية -->
+    <section class="hero" id="home">
+        <h1 class="en-text">Abdalla Mohammed Rizk</h1>
+        <h2 class="en-text">Medicine. Technology. Research.</h2>
+        <p class="en-text">A journey of continuous learning, scientific exploration, and professional growth.</p>
+    </section>
+
+    <!-- التعليم والأهداف (Cards) -->
+    <section id="about">
+        <h2 class="section-title">المجالات الرئيسية</h2>
+        <div class="grid-container">
+            <div class="card">
+                <i class="fas fa-user-md"></i>
+                <h3>Medicine (العلوم الطبية)</h3>
+                <p>طالب طب بشري بجامعة الأزهر بأسيوط (دفعة 39). تركيز على الفسيولوجيا البشرية وفهم آليات الجسم بعمق.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-microchip"></i>
+                <h3>Technology (التقنية و AI)</h3>
+                <p>شغف بالبرمجة، الذكاء الاصطناعي، والتصميم الرقمي، والبحث عن طرق لدمج التكنولوجيا بالتعليم الطبي.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-bullseye"></i>
+                <h3>Future Goals (الخطط)</h3>
+                <p>بناء نظام مستمر لتطوير الذات أكاديمياً، لغوياً، وتقنياً بأسس واقعية قابلة للتنفيذ.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- أسلوب التعلم -->
+    <section id="learning">
+        <h2 class="section-title">أسلوبي المفضل في التعلم</h2>
+        <ul class="learning-list">
+            <li><i class="fas fa-language"></i> الشرح بالعربية المصرية البسيطة عند تناول الموضوعات العلمية المعقدة.</li>
+            <li><i class="fas fa-layer-group"></i> تقسيم المعلومات الكثيفة إلى خطوات وأجزاء واضحة يسهل استيعابها.</li>
+            <li><i class="fas fa-balance-scale"></i> إجراء مقارنات تفصيلية دقيقة قبل اتخاذ أي قرارات أكاديمية أو تقنية.</li>
+            <li><i class="fas fa-check-circle"></i> التحقق من المعلومات الأكاديمية والمهنية بالرجوع دائماً للمصادر الرسمية.</li>
+            <li><i class="fas fa-tools"></i> التعلم بالتطبيق العملي وحل الأسئلة بدلاً من الاكتفاء بالقراءة النظرية.</li>
+            <li><i class="fas fa-laptop-code"></i> الاعتماد على الأدوات التفاعلية في المذاكرة لزيادة الإنتاجية.</li>
+            <li><i class="fas fa-coins"></i> اختيار حلول تقنية وبرمجية تتناسب مع ميزانيتي وأجهزتي الحالية.</li>
+            <li><i class="fas fa-calendar-check"></i> وضع خطط واقعية تسمح بالتوفيق بين دراسة الطب، تعلم التكنولوجيا، وتطوير اللغات.</li>
+        </ul>
+    </section>
+
+    <!-- المشاريع المستقبلية -->
+    <section id="projects">
+        <h2 class="section-title">أفكار لمشاريع مستقبلية</h2>
+        <div class="grid-container">
+            <div class="card">
+                <i class="fas fa-brain"></i>
+                <h3 class="en-text">AI for Medical Education</h3>
+                <p>تطوير أو استخدام أدوات تساعد الطلاب على فهم المحاضرات، إنشاء أسئلة تدريبية، وتنظيم المراجعات بذكاء.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-code"></i>
+                <h3 class="en-text">Programming Projects</h3>
+                <p>بناء مشروعات برمجية صغيرة وتطبيقية لتعلم أساسيات البرمجة وحل المشكلات التقنية.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-microscope"></i>
+                <h3 class="en-text">Medical Research Journey</h3>
+                <p>توثيق مسيرة تعلم البحث العلمي، تلخيص الأوراق البحثية المعقدة، واستكشاف فرص المشاركة في الأبحاث.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-globe-americas"></i>
+                <h3 class="en-text">Language Learning</h3>
+                <p>بناء نظام مستمر ومستدام لتطوير المهارات اللغوية في الإنجليزية، الألمانية، والإيطالية.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- الاهتمامات الثقافية والشخصية -->
+    <section id="interests">
+        <h2 class="section-title">الاهتمامات الشخصية والثقافية</h2>
+        
+        <div class="interest-category">
+            <h3><i class="fas fa-film"></i> المسلسلات والدراما</h3>
+            <div class="tags">
+                <span class="tag">Breaking Bad</span>
+                <span class="tag">Game of Thrones</span>
+                <span class="tag">Better Call Saul</span>
+                <span class="tag">House of the Dragon</span>
+                <span class="tag">Vikings</span>
+                <span class="tag">The Last Kingdom</span>
+            </div>
+        </div>
+
+        <div class="interest-category">
+            <h3><i class="fas fa-compass"></i> الاستكشاف والعلوم</h3>
+            <div class="tags">
+                <span class="tag">أفلام الاستكشاف</span>
+                <span class="tag">الرحلات العلمية</span>
+                <span class="tag">الطبيعة القطبية</span>
+                <span class="tag">مغامرات (خالية من الرعب)</span>
+            </div>
+        </div>
+
+        <div class="interest-category">
+            <h3><i class="fas fa-music"></i> الموسيقى والكتابة</h3>
+            <div class="tags">
+                <span class="tag">كتابة الأغاني والقصائد</span>
+                <span class="tag">موسيقى كلاسيكية وأوركسترالية</span>
+                <span class="tag">أعمال وطنية وتاريخية</span>
+                <span class="tag">نصوص تعبر عن الغربة والحنين</span>
+            </div>
+        </div>
+        
+        <div class="interest-category">
+            <h3><i class="fas fa-book-open"></i> الثقافة والرياضة</h3>
+            <div class="tags">
+                <span class="tag">الشعر والأدب العربي</span>
+                <span class="tag">التاريخ والأمثال المصرية</span>
+                <span class="tag">المحتوى التعليمي الممتع</span>
+                <span class="tag">كرة القدم (اهتمام سابق)</span>
+                <span class="tag">التوازن بين الدراسة والحياة</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- معلومات التواصل -->
+    <section id="contact" style="text-align: center; border-bottom: none;">
+        <h2 class="section-title">تواصل معي</h2>
+        <p>مرحباً بك للتواصل من أجل التعاون الأكاديمي، التقني، أو تبادل الأفكار.</p>
+        <div class="contact-links">
+            <a href="mailto:abdallarizk2019@gmail.com" class="contact-btn email-btn">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+            <a href="https://instagram.com/abdalla.rizk.605" target="_blank" class="contact-btn insta-btn">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+        </div>
+    </section>
+
+    <!-- سكربت الوضع الليلي -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>
